@@ -24,7 +24,7 @@ function convertTimestampToString(timestamp, flag = false) {
   }
 }
 
-const baseURL = 'http://localhost'
+const baseURL = ''
 
 const Announcement = () => {
   const [blogs, setBlogs] = useState([])

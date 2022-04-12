@@ -14,7 +14,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser, cilEnvelopeClosed } from '@coreui/icons'
 
-const baseURL = 'http://localhost'
+const baseURL = ''
 
 const Login = () => {
   return (

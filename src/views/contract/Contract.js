@@ -13,7 +13,7 @@ import axios from 'axios'
 
 var contract
 var contractAddress = "0xCE07219F6DCC95e89238e3aAa622379674e2549D"
-const baseURL = 'http://localhost'
+const baseURL = ''
 
 async function connect(onConnected = null, onCancelled = null) {
   try {

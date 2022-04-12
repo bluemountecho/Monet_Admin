@@ -57,6 +57,7 @@ app.use(fileUpload())
 app.use(express.static(path.join(__dirname, '/build')));
 app.use(express.static(path.join(__dirname, '/public')));
 
+const baseURL = ''
 
 function convertTimestampToString(timestamp, flag = false) {
     if (flag == false) {
@@ -67,7 +68,7 @@ function convertTimestampToString(timestamp, flag = false) {
 }
 
 app.post('/checkSession', function (req, res) {
-    return res.send('2')
+    // return res.send('2')
 
     if (!req.session.user) {
         res.send('0')
@@ -87,7 +88,7 @@ app.post('/verifycode', async function (req, res) {
     let verifyCode = req.body.verifyCode
 
     if (!req.session.user) {
-        res.redirect('http://localhost:3001/#/login')
+        res.redirect(baseURL + '/#/login')
         return
     }
 
@@ -97,12 +98,12 @@ app.post('/verifycode', async function (req, res) {
         if (rows.length) {
             req.session.user.verifyCode = rows[0].verify_code
 
-            res.redirect('http://localhost:3001/#/dashboard')
+            res.redirect(baseURL + '/#/dashboard')
         } else {
-            res.redirect('http://localhost:3001/#/verifycode')
+            res.redirect(baseURL + '/#/verifycode')
         }
     } else {
-        res.redirect('http://localhost:3001/#/verifycode')
+        res.redirect(baseURL + '/#/verifycode')
     }
 })
 
@@ -146,12 +147,12 @@ app.post('/login', async function(req, res) {
                 //   console.log(info);
             });
 
-            res.redirect('http://localhost:3001/#/verifycode')
+            res.redirect(baseURL + '/#/verifycode')
         } else {
-            res.redirect('http://localhost:3001/#/login')
+            res.redirect(baseURL + '/#/login')
         }
 	} else {
-		res.redirect('http://localhost:3001/#/login')
+		res.redirect(baseURL + '/#/login')
 	}
 });
 
@@ -171,7 +172,7 @@ app.post('/saveblog', async function (req, res) {
     })
 
     image.mv(path.join(__dirname, 'public', uploadPath), function (err) {
-        res.redirect('http://localhost:3001/#/announcements')
+        res.redirect(baseURL + '/#/announcements')
     })
 })
 
@@ -186,7 +187,7 @@ app.get('/deleteblog/:blogID', async function (req, res) {
 
     await knex('tbl_blogs').where('blog_id', blogID).delete()
     
-    res.redirect('http://localhost:3001/#/announcements')
+    res.redirect(baseURL + '/#/announcements')
 })
 
 app.post('/savefaq', async function (req, res) {
@@ -198,7 +199,7 @@ app.post('/savefaq', async function (req, res) {
         faq_description: description,
     })
     
-    res.redirect('http://localhost:3001/#/faqs')
+    res.redirect(baseURL + '/#/faqs')
 })
 
 app.get('/getfaqs', async function (req, res) {
@@ -212,7 +213,7 @@ app.get('/deletefaq/:faqID', async function (req, res) {
 
     await knex('tbl_faqs').where('faq_id', faqID).delete()
     
-    res.redirect('http://localhost:3001/#/faqs')
+    res.redirect(baseURL + '/#/faqs')
 })
 
 app.get('/getreflect', async function (req, res) {

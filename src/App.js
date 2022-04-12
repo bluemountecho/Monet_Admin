@@ -18,7 +18,7 @@ const Register = React.lazy(() => import('./views/pages/register/Register'))
 const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 
-const baseURL = 'http://localhost'
+const baseURL = ''
 
 class App extends Component {
   constructor (props) {

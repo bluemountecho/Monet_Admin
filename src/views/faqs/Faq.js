@@ -16,7 +16,7 @@ import axios from 'axios'
 import {Parser} from 'html-to-react'
 
 const htmlToReactParser = new Parser()
-const baseURL = 'http://localhost'
+const baseURL = ''
 
 const Faq = () => {
   const [faqs, setFaqs] = useState([])
