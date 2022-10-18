@@ -14,8 +14,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser, cilEnvelopeClosed } from '@coreui/icons'
 
-const baseURL = ''
-
+const baseURL = 'https://www.mtztoken.com/api'
 const VerifyCode = () => {
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">

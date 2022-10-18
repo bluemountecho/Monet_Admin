@@ -16,8 +16,7 @@ import axios from 'axios'
 import {Parser} from 'html-to-react'
 
 const htmlToReactParser = new Parser()
-const baseURL = ''
-
+const baseURL = 'https://www.mtztoken.com/api'
 const Faq = () => {
   const [faqs, setFaqs] = useState([])
 
