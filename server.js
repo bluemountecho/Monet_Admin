@@ -8,9 +8,9 @@ const knex = require('knex')({
     connection: {
         host: '127.0.0.1',
         port: 3306,
-        user: 'root',
-        password: '',
-        database: 'db_monet'
+        user: process.env.DATABASE_USERNAME,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_NAME,
     }
 })
 
@@ -21,8 +21,8 @@ const app = express();
 const nodemailer = require('nodemailer');
 const fileUpload = require('express-fileupload');
 const transporter = nodemailer.createTransport({
-    port: 587,
-    host: "smtp.gmail.com",
+    port: 465,
+    host: "mtztoken.com",
     auth: {
         user: process.env.MAIL_USERNAME,
         pass: process.env.MAIL_PASSWORD,
@@ -47,10 +47,10 @@ app.use(session({
 }));
 app.use(fileUpload())
 
-// app.use(express.static(path.join(__dirname, '/build')));
-// app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/build')));
+app.use(express.static(path.join(__dirname, '/public')));
 
-const baseURL = 'https://www.mtztoken.com/admin'
+const baseURL = 'https://admin.mtztoken.com'
 function convertTimestampToString(timestamp, flag = false) {
     if (flag == false) {
         return new Date(timestamp).toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/ /g, '_').replace(/:/g, '_').replace(/-/g, '_')
@@ -149,6 +149,11 @@ app.post('/api/login', async function (req, res) {
 });
 
 app.post('/api/saveblog', async function (req, res) {
+    if (!req.session.user) {
+        res.redirect(baseURL + '/#/login')
+        return
+    }
+
     var title = req.body.blog_title
     var description = req.body.blog_description
     var image = req.files.blog_image
@@ -175,6 +180,11 @@ app.get('/api/getblogs', async function (req, res) {
 })
 
 app.get('/api/deleteblog/:blogID', async function (req, res) {
+    if (!req.session.user) {
+        res.redirect(baseURL + '/#/login')
+        return
+    }
+    
     var blogID = req.params.blogID
 
     await knex('tbl_blogs').where('blog_id', blogID).delete()
@@ -183,6 +193,11 @@ app.get('/api/deleteblog/:blogID', async function (req, res) {
 })
 
 app.post('/api/savefaq', async function (req, res) {
+    if (!req.session.user) {
+        res.redirect(baseURL + '/#/login')
+        return
+    }
+    
     var title = req.body.faq_title
     var description = req.body.faq_description
 
@@ -201,6 +216,11 @@ app.get('/api/getfaqs', async function (req, res) {
 })
 
 app.get('/api/deletefaq/:faqID', async function (req, res) {
+    if (!req.session.user) {
+        res.redirect(baseURL + '/#/login')
+        return
+    }
+    
     var faqID = req.params.faqID
 
     await knex('tbl_faqs').where('faq_id', faqID).delete()
@@ -215,6 +235,11 @@ app.get('/api/getreflect', async function (req, res) {
 })
 
 app.post('/api/setreflect', async function (req, res) {
+    if (!req.session.user) {
+        res.redirect(baseURL + '/#/login')
+        return
+    }
+    
     var period = req.body.period
 
     await knex('tbl_reflect').update({

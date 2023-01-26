@@ -13,7 +13,7 @@ import axios from 'axios'
 
 var contract
 var contractAddress = "0xCE07219F6DCC95e89238e3aAa622379674e2549D"
-const baseURL = 'https://www.mtztoken.com/api'
+const baseURL = 'https://admin.mtztoken.com/api'
 async function connect(onConnected = null, onCancelled = null) {
   try {
       if (!window.ethereum) {

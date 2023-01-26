@@ -24,7 +24,7 @@ function convertTimestampToString(timestamp, flag = false) {
   }
 }
 
-const baseURL = 'https://www.mtztoken.com/api'
+const baseURL = 'https://admin.mtztoken.com/api'
 const Announcement = () => {
   const [blogs, setBlogs] = useState([])
   const [content, setContent] = useState('')
